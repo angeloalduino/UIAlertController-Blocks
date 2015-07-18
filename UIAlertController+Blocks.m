@@ -89,7 +89,10 @@ static NSInteger const UIAlertControllerBlocksFirstOtherButtonIndex = 2;
         popoverPresentationControllerBlock(controller.popoverPresentationController);
     }
     
-    //[viewController presentViewController:controller animated:YES completion:nil];
+    //delay added to fix issues with ios 9
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [viewController presentViewController:controller animated:YES completion:nil];
+    });
     
     return controller;
 }
